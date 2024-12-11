@@ -73,6 +73,41 @@ class Classifier:
         
         print("[INIT] Initialization complete")
 
+
+    def validate_model(self, model, val_loader, num_labels):
+        """
+        Validate the model on the validation set and return metrics.
+        """
+        print(f"[VALIDATION] Evaluating model on validation set...")
+        model.eval()
+        all_preds = []
+        all_labels = []
+        with torch.no_grad():
+            for batch in val_loader:
+                input_ids = batch['input_ids'].to(self.device)
+                attention_mask = batch['attention_mask'].to(self.device)
+                labels = batch['labels'].to(self.device)
+                additional_features = batch['additional_features'].to(self.device)
+                
+                outputs = model(
+                    input_ids, 
+                    attention_mask=attention_mask, 
+                    additional_features=additional_features
+                )
+                preds = torch.argmax(outputs.logits, dim=1)
+                all_preds.extend(preds.cpu().numpy())
+                all_labels.extend(labels.cpu().numpy())
+
+                print(all_labels, all_preds)
+
+        # Generate classification report
+        report = classification_report(
+            all_labels, all_preds, target_names=[f"Class {i}" for i in range(num_labels)]
+        )
+        print(f"[VALIDATION] Classification Report:\n{report}")
+        return report
+
+
     def train_model(self, texts, labels, category, epochs=5, batch_size=16, additional_features=None):
         if isinstance(labels[0], str):
             raise ValueError("Labels should be numbers, not strings")
@@ -129,7 +164,7 @@ class Classifier:
             num_warmup_steps=0, 
             num_training_steps=total_steps
         )
-        
+        validations_reports = []
         # Training loop
         print("[TRAINING] Starting training loop...")
         model.train()
@@ -160,9 +195,14 @@ class Classifier:
                 
                 if batch_idx % 10 == 0:
                     print(f"[TRAINING] Epoch {epoch+1}, Batch {batch_idx}, Loss: {loss.item():.4f}")
+
+            report = self.validate_model(model, val_loader, num_labels)
+            validations_reports.append(report)
         
         print("[TRAINING] Training completed!")
         self.models[category] = model
+
+        return validations_reports
 
     
     def predict(self, texts, category):
