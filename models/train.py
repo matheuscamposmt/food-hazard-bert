@@ -9,17 +9,18 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score
 import os
 import time
+from .deberta_classifier import DebertaV2Classifier, DebertaV2Model
+from transformers import DebertaV2Tokenizer, DebertaV2ForSequenceClassification, AutoModel
+from transformers import AdamW, get_scheduler
 
-class FoodHazardDataset(Dataset):
-    def __init__(self, texts, labels, tokenizer, max_length=128):
+class PrepareDataset(Dataset):
+    def __init__(self, texts, labels, tokenizer, additional_features=None, max_length=128):
         print(f"[DATASET] Preparing dataset with {len(texts)} texts")
         start_time = time.time()
-        
-        # Ensure texts is a list of strings
+
         if not isinstance(texts, list):
             texts = texts.tolist()
         
-        # Tokenization with explicit list of strings
         self.encodings = tokenizer(
             texts, 
             truncation=True, 
@@ -27,8 +28,13 @@ class FoodHazardDataset(Dataset):
             max_length=max_length, 
             return_tensors='pt'
         )
-        self.labels = torch.tensor(labels)
+        # Convert labels to LongTensor
+        self.labels = torch.tensor(labels, dtype=torch.long)
         
+        if additional_features is None:
+            additional_features = np.zeros((len(texts), 1))  # Replace 1 with your feature dimension if known
+        self.additional_features = torch.tensor(additional_features, dtype=torch.float)
+
         end_time = time.time()
         print(f"[DATASET] Dataset preparation completed in {end_time - start_time:.2f} seconds")
     
@@ -36,64 +42,68 @@ class FoodHazardDataset(Dataset):
         item = {
             'input_ids': self.encodings['input_ids'][idx],
             'attention_mask': self.encodings['attention_mask'][idx],
-            'labels': self.labels[idx]
+            'labels': self.labels[idx],
+            'additional_features': self.additional_features[idx]
         }
         return item
     
     def __len__(self):
         return len(self.labels)
 
-from transformers import DebertaV2Tokenizer, DebertaV2ForSequenceClassification
-from transformers import AdamW, get_scheduler
+
 
 class Classifier:
-    def __init__(self, model_name='microsoft/deberta-v3-small'):
+    def __init__(self, model_name_or_path: str = 'microsoft/deberta-v3-small'):
         """
         Initialize transformer-based text classifier
         
         Args:
-            categories (list): List of unique categories to classify
             model_name (str): Transformer model to use
         """
         print(f"[INIT] Initializing Transformer Classifier")
-        print(f"[INIT] Model: {model_name}")
+        print(f"[INIT] Model: {model_name_or_path}")
         
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         print(f"[INIT] Using device: {self.device}")
-        
-        self.model_name = model_name
-        
+
+        self.model_name_or_path = model_name_or_path
         # Label encoding
         self.label_encoders = {}
         self.models = {}
         
         print("[INIT] Initialization complete")
 
-    def train_model(self, texts, labels, category, epochs=3, batch_size=16):
-        """
-        Train a transformer model for a specific category
-        """
-        print(f"\n[TRAINING] Starting training for {category}")
+    def train_model(self, texts, labels, category, epochs=5, batch_size=16, additional_features=None):
+        if isinstance(labels[0], str):
+            raise ValueError("Labels should be numbers, not strings")
+        
+        if additional_features is not None and len(additional_features) != len(texts):
+            raise ValueError("Length of additional_features must match the length of texts.")
+        
+        print(f"\n[TRAINING] Starting training")
         print(f"[TRAINING] Total texts: {len(texts)}")
         print(f"[TRAINING] Epochs: {epochs}")
         print(f"[TRAINING] Batch size: {batch_size}")
-        
+
         # Split data
         X_train, X_val, y_train, y_val = train_test_split(
             texts, labels, test_size=0.2, random_state=42
         )
+        train_features, val_features = None, None
+        if additional_features is not None:
+            train_features, val_features = train_test_split(additional_features, test_size=0.2, random_state=42)
         
         print(f"[TRAINING] Training set size: {len(X_train)}")
         print(f"[TRAINING] Validation set size: {len(X_val)}")
         
         # Tokenizer
         print("[TRAINING] Loading tokenizer...")
-        tokenizer = DebertaV2Tokenizer.from_pretrained(self.model_name)
+        tokenizer = DebertaV2Tokenizer.from_pretrained('microsoft/deberta-v3-small')
         
         # Create datasets
         print("[TRAINING] Creating datasets...")
-        train_dataset = FoodHazardDataset(X_train, y_train, tokenizer)
-        val_dataset = FoodHazardDataset(X_val, y_val, tokenizer)
+        train_dataset = PrepareDataset(X_train, y_train, tokenizer, train_features)
+        val_dataset = PrepareDataset(X_val, y_val, tokenizer, val_features)
         
         # DataLoaders
         print("[TRAINING] Creating data loaders...")
@@ -102,13 +112,12 @@ class Classifier:
         
         # Model initialization
         num_labels = len(np.unique(labels))
+        feature_size = train_features.shape[1] if additional_features is not None else 0
         print(f"[TRAINING] Number of labels: {num_labels}")
+        print(f"[TRAINING] Additional feature size: {feature_size}")
         
         print("[TRAINING] Loading pre-trained model...")
-        model = DebertaV2ForSequenceClassification.from_pretrained(
-            self.model_name, 
-            num_labels=num_labels
-        ).to(self.device)
+        model = DebertaV2Classifier(num_labels, feature_size).to(self.device)
         
         # Optimizer and scheduler
         print("[TRAINING] Preparing optimizer and scheduler...")
@@ -133,11 +142,13 @@ class Classifier:
                 input_ids = batch['input_ids'].to(self.device)
                 attention_mask = batch['attention_mask'].to(self.device)
                 labels = batch['labels'].to(self.device)
+                additional_features = batch['additional_features'].to(self.device)
                 
                 outputs = model(
                     input_ids, 
                     attention_mask=attention_mask, 
-                    labels=labels
+                    labels=labels,
+                    additional_features=additional_features
                 )
                 loss = outputs.loss
                 total_loss += loss.item()
@@ -149,8 +160,10 @@ class Classifier:
                 
                 if batch_idx % 10 == 0:
                     print(f"[TRAINING] Epoch {epoch+1}, Batch {batch_idx}, Loss: {loss.item():.4f}")
+        
+        print("[TRAINING] Training completed!")
+        self.models[category] = model
 
-        return model
     
     def predict(self, texts, category):
         """
@@ -165,7 +178,7 @@ class Classifier:
         
         # Tokenizer
         print("[PREDICTION] Loading tokenizer...")
-        tokenizer = DebertaV2Tokenizer.from_pretrained(self.model_name)
+        tokenizer = DebertaV2Tokenizer.from_pretrained('microsoft/deberta-v3-small')
         
         # Prepare input
         print("[PREDICTION] Preparing input...")
