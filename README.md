@@ -145,7 +145,7 @@ python models/evaluate.py --model models/best_model --data data/processed/test.c
 ## Contribuições
 Os membros do time trabalharam colaborativamente nas seguintes áreas:
 - **Matheus Campos**: Engenharia de dados, desenvolvimento do modelo DeBERTaV2 com características adicionais.
-- **Daniel Menezes**: Pré-processamento de dados e experimentação em notebooks.
-- **Matheus Laureano**: Visualização de resultados e estruturação do relatório.
+- **Daniel Menezes**: Pré-processamento de dados, visualização de resultados e estruturação do relatório.
+- **Matheus Laureano**: Pré-processamento de dados, experimentação em notebooks e módulo de treinamento.
 
 Contribuições detalhadas podem ser encontradas no relatório.
