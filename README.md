@@ -1,6 +1,6 @@
 # The Food Hazard Detection Challenge
 
-Um projeto colaborativo para a *SemEval 2025 Task 9: The Food Hazard Detection Challenge*, utilizando modelos de linguagem natural avançados. Este repositório inclui implementações, experimentos e relatórios para a detecção de riscos alimentares com base em textos.
+Um projeto colaborativo para a [*SemEval 2025 Task 9: The Food Hazard Detection Challenge*](https://food-hazard-detection-semeval-2025.github.io/), utilizando modelos de linguagem natural avançados. Este repositório inclui implementações, experimentos e relatórios para a detecção de riscos alimentares com base em textos.
 
 ## Membros do Time
 - **Matheus Campos**
