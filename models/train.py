@@ -9,9 +9,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score
 import os
 import time
-from .deberta_classifier import DebertaV2Classifier, DebertaV2Model
+from .deberta_classifier import DebertaV2Classifier, DebertaV2Model, DebertaV2LoRaClassifier
 from transformers import DebertaV2Tokenizer, DebertaV2ForSequenceClassification, AutoModel
 from transformers import AdamW, get_scheduler
+import loralib as lora
 
 class PrepareDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, additional_features=None, max_length=128):
@@ -32,9 +33,10 @@ class PrepareDataset(Dataset):
         self.labels = torch.tensor(labels, dtype=torch.long)
         
         if additional_features is None:
-            additional_features = np.zeros((len(texts), 1))  # Replace 1 with your feature dimension if known
-        self.additional_features = torch.tensor(additional_features, dtype=torch.float)
-
+            # make it empty tensor if no additional features
+            self.additional_features = torch.tensor([], dtype=torch.float32)
+        else:
+            self.additional_features = torch.tensor(additional_features, dtype=torch.float32)
         end_time = time.time()
         print(f"[DATASET] Dataset preparation completed in {end_time - start_time:.2f} seconds")
     
@@ -43,7 +45,7 @@ class PrepareDataset(Dataset):
             'input_ids': self.encodings['input_ids'][idx],
             'attention_mask': self.encodings['attention_mask'][idx],
             'labels': self.labels[idx],
-            'additional_features': self.additional_features[idx]
+            'additional_features': self.additional_features[idx] if len(self.additional_features) > 0 else torch.tensor([])
         }
         return item
     
@@ -108,7 +110,8 @@ class Classifier:
         return report
 
 
-    def train_model(self, texts, labels, category, epochs=5, batch_size=16, additional_features=None):
+    def train_model(self, model, texts, labels, category, 
+                    epochs=5, batch_size=16, additional_features=None):
         if isinstance(labels[0], str):
             raise ValueError("Labels should be numbers, not strings")
         
@@ -150,9 +153,6 @@ class Classifier:
         feature_size = train_features.shape[1] if additional_features is not None else 0
         print(f"[TRAINING] Number of labels: {num_labels}")
         print(f"[TRAINING] Additional feature size: {feature_size}")
-        
-        print("[TRAINING] Loading pre-trained model...")
-        model = DebertaV2Classifier(num_labels, feature_size).to(self.device)
         
         # Optimizer and scheduler
         print("[TRAINING] Preparing optimizer and scheduler...")
