@@ -1,0 +1,1127 @@
+[
+    {
+        "biological": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.33267716535433073,
+            "recall": 0.9970501474926253,
+            "f1-score": 0.4988929889298893,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 11.0
+        },
+        "accuracy": 0.33235004916420846,
+        "macro avg": {
+            "precision": 0.033267716535433076,
+            "recall": 0.09970501474926254,
+            "f1-score": 0.04988929889298893,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.11089238845144357,
+            "recall": 0.33235004916420846,
+            "f1-score": 0.16629766297662976,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8328767123287671,
+            "recall": 0.8063660477453581,
+            "f1-score": 0.8194070080862533,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.5124223602484472,
+            "recall": 0.9734513274336283,
+            "f1-score": 0.671414038657172,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.25,
+            "recall": 0.018018018018018018,
+            "f1-score": 0.03361344537815126,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 11.0
+        },
+        "accuracy": 0.6253687315634219,
+        "macro avg": {
+            "precision": 0.15952990725772143,
+            "recall": 0.17978353931970045,
+            "f1-score": 0.15244344921215766,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.5068394303561149,
+            "recall": 0.6253687315634219,
+            "f1-score": 0.5312260507278994,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.7606837606837606,
+            "recall": 0.9442970822281167,
+            "f1-score": 0.842603550295858,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8113207547169812,
+            "recall": 0.887905604719764,
+            "f1-score": 0.847887323943662,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.5076923076923077,
+            "recall": 0.4852941176470588,
+            "f1-score": 0.49624060150375937,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.7631578947368421,
+            "recall": 0.5225225225225225,
+            "f1-score": 0.6203208556149733,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7837837837837838,
+            "recall": 0.4264705882352941,
+            "f1-score": 0.5523809523809524,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 11.0
+        },
+        "accuracy": 0.7640117994100295,
+        "macro avg": {
+            "precision": 0.36266385016136754,
+            "recall": 0.3266489915352756,
+            "f1-score": 0.3359433283739205,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.7220712037000965,
+            "recall": 0.7640117994100295,
+            "f1-score": 0.7327996282358528,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8256880733944955,
+            "recall": 0.9549071618037135,
+            "f1-score": 0.8856088560885609,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8664772727272727,
+            "recall": 0.8997050147492626,
+            "f1-score": 0.8827785817655571,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.8085106382978723,
+            "recall": 0.5588235294117647,
+            "f1-score": 0.6608695652173913,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.6370967741935484,
+            "recall": 0.7117117117117117,
+            "f1-score": 0.6723404255319149,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7307692307692307,
+            "recall": 0.5588235294117647,
+            "f1-score": 0.6333333333333333,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.5,
+            "recall": 0.1111111111111111,
+            "f1-score": 0.18181818181818182,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 11.0
+        },
+        "accuracy": 0.8092428711897739,
+        "macro avg": {
+            "precision": 0.436854198938242,
+            "recall": 0.37950820581993283,
+            "f1-score": 0.39167489437549385,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.7806381240475094,
+            "recall": 0.8092428711897739,
+            "f1-score": 0.7872971024665625,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8702290076335878,
+            "recall": 0.9071618037135278,
+            "f1-score": 0.8883116883116883,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8342245989304813,
+            "recall": 0.9203539823008849,
+            "f1-score": 0.8751753155680224,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.8666666666666667,
+            "recall": 0.5735294117647058,
+            "f1-score": 0.6902654867256637,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.631578947368421,
+            "recall": 0.7567567567567568,
+            "f1-score": 0.6885245901639344,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.6909090909090909,
+            "recall": 0.5588235294117647,
+            "f1-score": 0.6178861788617886,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 1.0,
+            "recall": 0.1,
+            "f1-score": 0.18181818181818182,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.5625,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.4186046511627907,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 11.0
+        },
+        "accuracy": 0.8112094395280236,
+        "macro avg": {
+            "precision": 0.5456108311508248,
+            "recall": 0.4149958817280973,
+            "f1-score": 0.43605860926120704,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.7985116908439942,
+            "recall": 0.8112094395280236,
+            "f1-score": 0.7965378452692102,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8919667590027701,
+            "recall": 0.8541114058355438,
+            "f1-score": 0.8726287262872628,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.7783251231527094,
+            "recall": 0.9321533923303835,
+            "f1-score": 0.8483221476510067,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.7142857142857143,
+            "recall": 0.5882352941176471,
+            "f1-score": 0.6451612903225806,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.6776859504132231,
+            "recall": 0.7387387387387387,
+            "f1-score": 0.7068965517241379,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7959183673469388,
+            "recall": 0.5735294117647058,
+            "f1-score": 0.6666666666666666,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 1.0,
+            "recall": 0.2,
+            "f1-score": 0.3333333333333333,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.6190476190476191,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.5416666666666666,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 1.0,
+            "recall": 0.09090909090909091,
+            "f1-score": 0.16666666666666666,
+            "support": 11.0
+        },
+        "accuracy": 0.8013765978367748,
+        "macro avg": {
+            "precision": 0.6477229533248975,
+            "recall": 0.4459158815177592,
+            "f1-score": 0.4781342049318321,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8021189662281089,
+            "recall": 0.8013765978367748,
+            "f1-score": 0.790583798276602,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8635235732009926,
+            "recall": 0.9230769230769231,
+            "f1-score": 0.8923076923076924,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8516483516483516,
+            "recall": 0.9144542772861357,
+            "f1-score": 0.8819345661450925,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.75,
+            "recall": 0.6617647058823529,
+            "f1-score": 0.703125,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.7368421052631579,
+            "recall": 0.7567567567567568,
+            "f1-score": 0.7466666666666667,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7169811320754716,
+            "recall": 0.5588235294117647,
+            "f1-score": 0.628099173553719,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.5,
+            "recall": 0.2,
+            "f1-score": 0.2857142857142857,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.6111111111111112,
+            "recall": 0.4074074074074074,
+            "f1-score": 0.4888888888888889,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 1.0,
+            "recall": 0.09090909090909091,
+            "f1-score": 0.16666666666666666,
+            "support": 11.0
+        },
+        "accuracy": 0.8249754178957719,
+        "macro avg": {
+            "precision": 0.6030106273299085,
+            "recall": 0.4513192690730431,
+            "f1-score": 0.47934029399430117,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8144556233735576,
+            "recall": 0.8249754178957719,
+            "f1-score": 0.8128510697299072,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8696741854636592,
+            "recall": 0.9204244031830239,
+            "f1-score": 0.8943298969072165,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8668555240793201,
+            "recall": 0.9026548672566371,
+            "f1-score": 0.884393063583815,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6486486486486487,
+            "recall": 0.7058823529411765,
+            "f1-score": 0.676056338028169,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.7168141592920354,
+            "recall": 0.7297297297297297,
+            "f1-score": 0.7232142857142857,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7884615384615384,
+            "recall": 0.6029411764705882,
+            "f1-score": 0.6833333333333333,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.5,
+            "recall": 0.2,
+            "f1-score": 0.2857142857142857,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.6190476190476191,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.5416666666666666,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 1.0,
+            "recall": 0.09090909090909091,
+            "f1-score": 0.16666666666666666,
+            "support": 11.0
+        },
+        "accuracy": 0.8249754178957719,
+        "macro avg": {
+            "precision": 0.6009501674992821,
+            "recall": 0.4634023101971728,
+            "f1-score": 0.48553745366144396,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8178321934138478,
+            "recall": 0.8249754178957719,
+            "f1-score": 0.8151449156797228,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8921832884097035,
+            "recall": 0.8779840848806366,
+            "f1-score": 0.8850267379679144,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.842391304347826,
+            "recall": 0.9144542772861357,
+            "f1-score": 0.8769448373408769,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6376811594202898,
+            "recall": 0.6470588235294118,
+            "f1-score": 0.6423357664233577,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.6589147286821705,
+            "recall": 0.7657657657657657,
+            "f1-score": 0.7083333333333334,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7843137254901961,
+            "recall": 0.5882352941176471,
+            "f1-score": 0.6722689075630253,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.6666666666666666,
+            "recall": 0.2,
+            "f1-score": 0.3076923076923077,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.56,
+            "recall": 0.5185185185185185,
+            "f1-score": 0.5384615384615384,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 1.0,
+            "recall": 0.09090909090909091,
+            "f1-score": 0.16666666666666666,
+            "support": 11.0
+        },
+        "accuracy": 0.8131760078662733,
+        "macro avg": {
+            "precision": 0.6042150873016853,
+            "recall": 0.46029258550072055,
+            "f1-score": 0.4797730095449021,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8107626407361572,
+            "recall": 0.8131760078662733,
+            "f1-score": 0.8047258759609174,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.883419689119171,
+            "recall": 0.9045092838196287,
+            "f1-score": 0.8938401048492791,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8837209302325582,
+            "recall": 0.8967551622418879,
+            "f1-score": 0.890190336749634,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6621621621621622,
+            "recall": 0.7205882352941176,
+            "f1-score": 0.6901408450704225,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 1.0,
+            "recall": 0.2,
+            "f1-score": 0.3333333333333333,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.6779661016949152,
+            "recall": 0.7207207207207207,
+            "f1-score": 0.6986899563318777,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.6615384615384615,
+            "recall": 0.6323529411764706,
+            "f1-score": 0.6466165413533834,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.4,
+            "recall": 0.2,
+            "f1-score": 0.26666666666666666,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.5789473684210527,
+            "recall": 0.4074074074074074,
+            "f1-score": 0.4782608695652174,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.4,
+            "recall": 0.18181818181818182,
+            "f1-score": 0.25,
+            "support": 11.0
+        },
+        "accuracy": 0.8190757128810227,
+        "macro avg": {
+            "precision": 0.6147754713168322,
+            "recall": 0.4864151932478415,
+            "f1-score": 0.5147738653919813,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8131052869163333,
+            "recall": 0.8190757128810227,
+            "f1-score": 0.8133753273623949,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8981233243967829,
+            "recall": 0.8885941644562334,
+            "f1-score": 0.8933333333333333,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8767908309455588,
+            "recall": 0.9026548672566371,
+            "f1-score": 0.8895348837209303,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6666666666666666,
+            "recall": 0.6764705882352942,
+            "f1-score": 0.6715328467153284,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.5,
+            "recall": 0.2,
+            "f1-score": 0.2857142857142857,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.6693548387096774,
+            "recall": 0.7477477477477478,
+            "f1-score": 0.7063829787234043,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.6285714285714286,
+            "recall": 0.6470588235294118,
+            "f1-score": 0.6376811594202898,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.4,
+            "recall": 0.2,
+            "f1-score": 0.26666666666666666,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.5652173913043478,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.52,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.5,
+            "recall": 0.09090909090909091,
+            "f1-score": 0.15384615384615385,
+            "support": 11.0
+        },
+        "accuracy": 0.8171091445427728,
+        "macro avg": {
+            "precision": 0.5704724480594462,
+            "recall": 0.48349167636158974,
+            "f1-score": 0.5024692308140393,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8116617818351166,
+            "recall": 0.8171091445427728,
+            "f1-score": 0.8118009843570577,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8769230769230769,
+            "recall": 0.9071618037135278,
+            "f1-score": 0.8917861799217731,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8579387186629527,
+            "recall": 0.9085545722713865,
+            "f1-score": 0.8825214899713467,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6818181818181818,
+            "recall": 0.6617647058823529,
+            "f1-score": 0.6716417910447762,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.5,
+            "recall": 0.2,
+            "f1-score": 0.2857142857142857,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.7339449541284404,
+            "recall": 0.7207207207207207,
+            "f1-score": 0.7272727272727273,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7288135593220338,
+            "recall": 0.6323529411764706,
+            "f1-score": 0.6771653543307087,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.6666666666666666,
+            "recall": 0.2,
+            "f1-score": 0.3076923076923077,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.52,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.5,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.5,
+            "recall": 0.18181818181818182,
+            "f1-score": 0.26666666666666666,
+            "support": 11.0
+        },
+        "accuracy": 0.8220255653883972,
+        "macro avg": {
+            "precision": 0.6066105157521351,
+            "recall": 0.4893854407064122,
+            "f1-score": 0.5210460802614592,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8137057429687308,
+            "recall": 0.8220255653883972,
+            "f1-score": 0.8149096965412277,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8778625954198473,
+            "recall": 0.9151193633952255,
+            "f1-score": 0.8961038961038961,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8579387186629527,
+            "recall": 0.9085545722713865,
+            "f1-score": 0.8825214899713467,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6666666666666666,
+            "recall": 0.6764705882352942,
+            "f1-score": 0.6715328467153284,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.5,
+            "recall": 0.2,
+            "f1-score": 0.2857142857142857,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.7431192660550459,
+            "recall": 0.7297297297297297,
+            "f1-score": 0.7363636363636363,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7636363636363637,
+            "recall": 0.6176470588235294,
+            "f1-score": 0.6829268292682927,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.4,
+            "recall": 0.2,
+            "f1-score": 0.26666666666666666,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.65,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.5531914893617021,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.4,
+            "recall": 0.18181818181818182,
+            "f1-score": 0.25,
+            "support": 11.0
+        },
+        "accuracy": 0.8259587020648967,
+        "macro avg": {
+            "precision": 0.5859223610440877,
+            "recall": 0.49108209757548293,
+            "f1-score": 0.5225021140165155,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8161182583016121,
+            "recall": 0.8259587020648967,
+            "f1-score": 0.8187089319987311,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8921052631578947,
+            "recall": 0.8992042440318302,
+            "f1-score": 0.8956406869220608,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8717948717948718,
+            "recall": 0.9026548672566371,
+            "f1-score": 0.8869565217391304,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6521739130434783,
+            "recall": 0.6617647058823529,
+            "f1-score": 0.656934306569343,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.3333333333333333,
+            "recall": 0.2,
+            "f1-score": 0.25,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.6859504132231405,
+            "recall": 0.7477477477477478,
+            "f1-score": 0.7155172413793104,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7,
+            "recall": 0.6176470588235294,
+            "f1-score": 0.65625,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.3333333333333333,
+            "recall": 0.2,
+            "f1-score": 0.25,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.5909090909090909,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.5306122448979592,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.4,
+            "recall": 0.18181818181818182,
+            "f1-score": 0.25,
+            "support": 11.0
+        },
+        "accuracy": 0.8190757128810227,
+        "macro avg": {
+            "precision": 0.5459600218795143,
+            "recall": 0.48923182870417603,
+            "f1-score": 0.5091911001507804,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8115093541379139,
+            "recall": 0.8190757128810227,
+            "f1-score": 0.8140415703945387,
+            "support": 1017.0
+        }
+    },
+    {
+        "biological": {
+            "precision": 0.8814432989690721,
+            "recall": 0.9071618037135278,
+            "f1-score": 0.8941176470588236,
+            "support": 377.0
+        },
+        "foreign bodies": {
+            "precision": 0.8603351955307262,
+            "recall": 0.9085545722713865,
+            "f1-score": 0.8837876614060258,
+            "support": 339.0
+        },
+        "chemical": {
+            "precision": 0.6764705882352942,
+            "recall": 0.6764705882352942,
+            "f1-score": 0.6764705882352942,
+            "support": 68.0
+        },
+        "fraud": {
+            "precision": 0.3333333333333333,
+            "recall": 0.2,
+            "f1-score": 0.25,
+            "support": 5.0
+        },
+        "organoleptic aspects": {
+            "precision": 0.7142857142857143,
+            "recall": 0.7207207207207207,
+            "f1-score": 0.7174887892376681,
+            "support": 111.0
+        },
+        "allergens": {
+            "precision": 0.7368421052631579,
+            "recall": 0.6176470588235294,
+            "f1-score": 0.672,
+            "support": 68.0
+        },
+        "packaging defect": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "other hazard": {
+            "precision": 0.3333333333333333,
+            "recall": 0.2,
+            "f1-score": 0.25,
+            "support": 10.0
+        },
+        "food additives and flavourings": {
+            "precision": 0.6842105263157895,
+            "recall": 0.48148148148148145,
+            "f1-score": 0.5652173913043478,
+            "support": 27.0
+        },
+        "migration": {
+            "precision": 0.3333333333333333,
+            "recall": 0.18181818181818182,
+            "f1-score": 0.23529411764705882,
+            "support": 11.0
+        },
+        "accuracy": 0.8220255653883972,
+        "macro avg": {
+            "precision": 0.5553587428599754,
+            "recall": 0.4893854407064122,
+            "f1-score": 0.5144376194889217,
+            "support": 1017.0
+        },
+        "weighted avg": {
+            "precision": 0.8126736315801951,
+            "recall": 0.8220255653883972,
+            "f1-score": 0.8157548973672916,
+            "support": 1017.0
+        }
+    }
+]
