@@ -11,8 +11,7 @@ Um projeto colaborativo para a [*SemEval 2025 Task 9: The Food Hazard Detection 
 O objetivo deste projeto é desenvolver uma solução eficiente para detectar riscos alimentares com base em textos, empregando técnicas de **Transformers** e **Processamento de Linguagem Natural (NLP)**.  
 A abordagem principal inclui:
 - **Análise e pré-processamento de dados**: preparação do texto bruto e engenharia de características adicionais.
-- **Treinamento e avaliação de modelos**: desenvolvimento de um modelo baseado no DeBERTaV2 e integração de características temporais.
-- **Geração de insights**: análise dos resultados para obter informações úteis para o domínio da segurança alimentar.
+- **Treinamento e avaliação de modelos**: desenvolvimento de um modelo baseado no DistilBERT e integração de características temporais.
 
 ---
 
@@ -32,24 +31,19 @@ A abordagem principal inclui:
 
 ## Arquitetura Implementada
 
-A arquitetura implementada é baseada no modelo **DeBERTaV2**, com extensões que permitem integrar características adicionais (temporais) à cabeça de classificação. Os principais componentes incluem:
+A arquitetura implementada é baseada no modelo **DistilBERT**, com extensões que permitem integrar características adicionais (temporais) à cabeça de classificação. Os principais componentes incluem:
 
-### **1. Modelo Base: DeBERTaV2**
-- O modelo pré-treinado **DeBERTaV2** é usado para gerar embeddings robustas a partir de textos descritivos.
-- Utilizamos a variante `microsoft/deberta-v3-small`, que equilibra desempenho e eficiência.
+### **1. Modelo Base: DistilBERT**
+- O modelo pré-treinado **DistilBERT** é usado para gerar embeddings robustas a partir de textos descritivos.
 
 ### **2. Cabeça de Classificação Personalizada**
 A arquitetura da cabeça de classificação foi modificada para integrar informações textuais e características adicionais:
-- **Saída do Modelo Base**: As embeddings do token `[CLS]` são extraídas como representações do texto.
 - **Engenharia de Características**: Características temporais (e.g., data de ocorrência) são normalizadas e integradas.
 - **Combinação de Representações**:
   - As embeddings textuais e as características adicionais são concatenadas.
+- Utilização de um mecanismo de atenção cruzada com o texto e as features adicionais.
   - A representação combinada é passada por uma camada linear para gerar logits.
 - **Função de Perda**: Utilizamos `CrossEntropyLoss` para tarefas de classificação multiclasse.
-
-### **3. Normalização de Características Temporais**
-- Características temporais contínuas são normalizadas usando **Min-Max Scaling**.
-- Para características periódicas (e.g., meses), foi implementada **codificação cíclica** com seno e cosseno para capturar a periodicidade.
 
 ### **4. Otimização e Regularização**
 - Otimizador: `AdamW` para melhor adaptação à regularização L2.
@@ -58,24 +52,15 @@ A arquitetura da cabeça de classificação foi modificada para integrar informa
 
 ### Fluxo de Dados no Modelo:
 1. **Entrada**:
-   - Texto descritivo (tokenizado pelo `DeBERTaV2Tokenizer`).
+   - Texto descritivo
    - Características adicionais (normalizadas e, se aplicável, codificadas ciclicamente).
 2. **Processamento**:
-   - O texto é transformado em embeddings pelo modelo DeBERTaV2.
+   - O texto é transformado em embeddings pelo modelo DistilBERT
    - As embeddings do texto são concatenadas com as características adicionais.
 3. **Saída**:
    - Logits de classificação para cada categoria de risco alimentar.
 
 A arquitetura é modular e facilmente extensível para incorporar novos tipos de características ou realizar ajustes.
-
----
-
-## Principais Componentes
-### Modelos Utilizados
-O projeto emprega o **DeBERTaV2**, um modelo de linguagem avançado, com as seguintes personalizações:
-- **Cabeçalho de classificação customizado**: Integração de **características temporais normalizadas** junto às embeddings do Transformer.
-- **Treinamento supervisionado**: Otimização do modelo para a classificação de múltiplas categorias de riscos alimentares.
-- **Normalização e Engenharia de Características**: Para melhorar a contribuição de variáveis temporais.
 
 ---
 
@@ -112,18 +97,6 @@ python scripts/preprocess.py --input data/raw --output data/processed
 Explore os dados e obtenha insights iniciais usando Jupyter Notebooks:
 ```bash
 jupyter notebook notebooks/analysis.ipynb
-```
-
-### 3. Treinar o Modelo:
-Treine o modelo DeBERTaV2 com as características integradas:
-```bash
-python models/train.py --config configs/train_config.yaml
-```
-
-### 4. Avaliar o Modelo:
-Calcule métricas de desempenho no conjunto de teste:
-```bash
-python models/evaluate.py --model models/best_model --data data/processed/test.csv
 ```
 
 ---
