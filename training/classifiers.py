@@ -1,178 +1,89 @@
 import os
 import torch
 import torch.nn as nn
-from transformers import DebertaV2Model, DebertaV2Config, DistilBertModel, DistilBertConfig
-from transformers.modeling_outputs import SequenceClassifierOutput
-from typing import Optional
+from transformers import DistilBertModel
 
-class FocalLoss(nn.Module):
-    def __init__(self, alpha=1, gamma=2):
-        super(FocalLoss, self).__init__()
-        self.alpha = alpha
-        self.gamma = gamma
+class Attention(nn.Module):
+    def __init__(self, hidden_size):
+        super(Attention, self).__init__()
+        self.attention = nn.Linear(hidden_size, 1)
 
-    def forward(self, inputs, targets, class_weights):
-        BCE_loss = nn.CrossEntropyLoss(weight=class_weights)(inputs, targets)
-        pt = torch.exp(-BCE_loss)
-        focal_loss = self.alpha * (1 - pt) ** self.gamma * BCE_loss
-        return focal_loss
+    def forward(self, hidden_states):
+        scores = self.attention(hidden_states)  # (batch_size, seq_len, 1)
+        weights = torch.softmax(scores, dim=1)  # (batch_size, seq_len, 1)
+        weighted_output = (hidden_states * weights).sum(dim=1)  # (batch_size, hidden_size)
+        return weighted_output
 
-
-import torch
-import torch.nn as nn
-
-class F1Loss(nn.Module):
-    def __init__(self, epsilon=1e-7):
-        super(F1Loss, self).__init__()
-        self.epsilon = epsilon
-
-    def forward(self, logits, labels):
-        # Convert logits to probabilities
-        probs = torch.softmax(logits, dim=1).to(labels.device)
-
-        # One-hot encode labels
-        labels_one_hot = torch.eye(probs.size(1), device=labels.device)[labels]
-
-        # Compute precision and recall
-        true_positive = torch.sum(probs * labels_one_hot, dim=0)
-        predicted_positive = torch.sum(probs, dim=0)
-        actual_positive = torch.sum(labels_one_hot, dim=0)
-
-        precision = true_positive / (predicted_positive + self.epsilon)
-        recall = true_positive / (actual_positive + self.epsilon)
-
-        # Compute F1
-        f1 = 2 * (precision * recall) / (precision + recall + self.epsilon)
-
-        # Take the mean over all classes (macro F1)
-        f1_loss = 1 - f1.mean()
-        return f1_loss
-
-
-
-class DebertaV2Classifier(nn.Module):
-    def __init__(self, num_classes, additional_feature_size):
-        super(DebertaV2Classifier, self).__init__()
-        
-        self.num_classes = num_classes
-        self.deberta = DebertaV2Model.from_pretrained('microsoft/deberta-v3-small')
-        self.config = DebertaV2Config.from_pretrained('microsoft/deberta-v3-small')
-        
-        # Adjust the classifier input to include additional features
-        self.classifier = nn.Linear(self.config.hidden_size + additional_feature_size, num_classes)
-        self.dropout = nn.Dropout(self.config.hidden_dropout_prob)
-
-    def forward(self, input_ids, attention_mask, additional_features, labels=None, class_weights: Optional[torch.Tensor] = None):
-        outputs = self.deberta(input_ids, attention_mask=attention_mask)
-        
-        # [CLS] token or pooled representation
-        pooled_output = outputs.last_hidden_state[:, 0, :]
-        pooled_output = self.dropout(pooled_output)
-
-        # Concatenate Transformer output with external features
-        pooled_output = torch.cat([pooled_output, additional_features], dim=1)
-
-        logits = self.classifier(pooled_output)
-
-        loss = None
-        if labels is not None:
-            loss_fct = F1Loss()
-            loss = loss_fct(logits.view(-1, self.num_classes), labels.view(-1).cpu())
-
-        return SequenceClassifierOutput(
-            loss=loss,
-            logits=logits,
-            hidden_states=outputs.hidden_states,
-            attentions=outputs.attentions,
-        )
-
-    def save_pretrained(self, path):
-        self.deberta.save_pretrained(path)
-        self.config.save_pretrained(path)
-        torch.save({
-            'classifier_state_dict': self.classifier.state_dict(),
-            'num_classes': self.num_classes
-        }, f"{path}/custom_head.pt")
-
-    @classmethod
-    def from_pretrained(cls, path, additional_feature_size):
-        config = DebertaV2Config.from_pretrained(path)
-        saved_data = torch.load(f"{path}/custom_head.pt")
-        num_classes = saved_data['num_classes']
-
-        model = cls(num_classes, additional_feature_size)
-        model.deberta = DebertaV2Model.from_pretrained(path)
-        model.config = config
-        model.classifier.load_state_dict(saved_data['classifier_state_dict'])
-        return model
 
 class ST1Classifier(nn.Module):
-    def __init__(self, num_categories, additional_feature_size=0):
+    def __init__(self, num_categories, additional_feature_size=0, dropout_rate=0.3, hidden_dim=128):
         super(ST1Classifier, self).__init__()
 
         self.num_categories = num_categories
         self.additional_feature_size = additional_feature_size
 
         self.bert = DistilBertModel.from_pretrained("distilbert/distilbert-base-uncased")
-        self.config = DistilBertConfig.from_pretrained("distilbert/distilbert-base-uncased")
+        self.attention = Attention(self.bert.config.hidden_size + additional_feature_size)
 
-        self.head = nn.Linear(
-            self.config.hidden_size + additional_feature_size, num_categories
-        )
+        # Definir camadas
+        self.linear = nn.Linear(self.bert.config.hidden_size + additional_feature_size, hidden_dim)
+        self.activation = nn.ReLU()
+        self.dropout = nn.Dropout(dropout_rate)
+        self.head = nn.Linear(hidden_dim, num_categories)
 
     def forward(self, input_ids, attention_mask, additional_features=None):
-        outputs = self.bert(input_ids, attention_mask=attention_mask)
-        pooled_output = outputs.last_hidden_state.mean(dim=1)
+        # Obter saídas do DistilBERT
+        bert_outputs = self.bert(input_ids, attention_mask=attention_mask).last_hidden_state
 
+        # Adicionar uma dimensão às features adicionais, se necessário
         if additional_features is not None:
-            combined_features = torch.cat([pooled_output, additional_features], dim=1)
-        else:
-            combined_features = pooled_output
+            # Expandir additional_features para corresponder ao comprimento da sequência de bert_outputs
+            batch_size, seq_len, hidden_size = bert_outputs.shape
+            additional_features_expanded = additional_features.unsqueeze(1).expand(batch_size, seq_len, -1)
 
-        logits = self.head(combined_features)
+            # Concatenar as features adicionais com as saídas do BERT ao longo da última dimensão
+            combined_features = torch.cat([bert_outputs, additional_features_expanded], dim=-1)
+        else:
+            combined_features = bert_outputs
+
+        # Aplicar o mecanismo de atenção às features combinadas
+        attention_output = self.attention(combined_features)
+
+        # Aplicar transformações
+        x = self.dropout(attention_output)
+        x = self.activation(self.linear(x))
+        logits = self.head(x)
 
         return logits
 
     def save_pretrained(self, save_path):
         """
-        Save the model's weights and configuration to the specified path.
+        Salvar os pesos e a configuração do modelo no caminho especificado.
         """
         os.makedirs(save_path, exist_ok=True)
         self.bert.save_pretrained(save_path)
-        torch.save(self.head.state_dict(), os.path.join(save_path, "head.pth"))
-        print(f"[INFO] ST1Classifier saved to {save_path}")
+        torch.save(self.state_dict(), os.path.join(save_path, "classifier_weights.pth"))
+        print(f"[INFO] ST1Classifier salvo em {save_path}")
 
-
-class ST2VectorPredictor(nn.Module):
-    def __init__(self, num_categories, embedding_size=768):
-        super(ST2VectorPredictor, self).__init__()
-
-        self.num_categories = num_categories
-
-        self.bert = DistilBertModel.from_pretrained("distilbert/distilbert-base-uncased")
-        self.config = DistilBertConfig.from_pretrained("distilbert/distilbert-base-uncased")
-
-        self.vector_head = nn.Linear(
-            self.config.hidden_size + num_categories, embedding_size
-        )
-        self.label_embeddings = torch.tensor([])
-
-    def forward(self, input_ids, attention_mask, logits):
-        outputs = self.bert(input_ids, attention_mask=attention_mask)
-        pooled_output = outputs.last_hidden_state.mean(dim=1)
-
-        vectors = self.vector_head(
-            torch.cat([pooled_output, logits], dim=1)
-        )
-
-        return vectors
-
-    def save_pretrained(self, save_path):
+    @classmethod
+    def from_pretrained(cls, pretrained_path, num_categories, additional_feature_size=0, dropout_rate=0.3, hidden_dim=128):
         """
-        Save the model's weights and configuration to the specified path.
+        Carregar os pesos e a configuração do modelo a partir do caminho especificado.
         """
-        os.makedirs(save_path, exist_ok=True)
-        self.bert.save_pretrained(save_path)
-        torch.save(self.vector_head.state_dict(), os.path.join(save_path, "vector_head.pth"))
-        torch.save(self.label_embeddings, os.path.join(save_path, "label_embeddings.pth"))
-        print(f"[INFO] ST2VectorPredictor saved to {save_path}")
+        # Inicializar um novo modelo
+        model = cls(
+            num_categories=num_categories,
+            additional_feature_size=additional_feature_size,
+            dropout_rate=dropout_rate,
+            hidden_dim=hidden_dim,
+        )
+        # Carregar os pesos do DistilBERT
+        model.bert = DistilBertModel.from_pretrained(pretrained_path)
+        # Carregar os pesos do classificador
+        classifier_weights_path = os.path.join(pretrained_path, "classifier_weights.pth")
+        if os.path.exists(classifier_weights_path):
+            model.load_state_dict(torch.load(classifier_weights_path, map_location=torch.device('cpu')))
+            print(f"[INFO] Pesos do ST1Classifier carregados de {classifier_weights_path}")
+        else:
+            print(f"[WARNING] Pesos do classificador não encontrados em {classifier_weights_path}, apenas os pesos do DistilBERT foram carregados.")
+        return model
