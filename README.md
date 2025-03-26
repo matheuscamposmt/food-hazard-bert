@@ -19,11 +19,7 @@ The core approach includes:
 ```plaintext
 ├── data/                 # Raw data, preprocessed datasets, and preparation scripts
 ├── notebooks/            # Jupyter notebooks for experimentation and analysis
-├── models/               # Model code, including feature integration
-├── configs/              # Model and training configurations
 ├── report/               # Collaborative LaTeX report (Overleaf)
-├── results/              # Model outputs, charts, and visualizations
-├── scripts/              # Utility scripts for execution and analysis
 └── README.md             # Project documentation (this file)
 ```
 
